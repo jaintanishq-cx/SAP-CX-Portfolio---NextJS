@@ -1,3 +1,8 @@
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+// src/app/keystatic/layout.tsx
+import KeystaticApp from "./keystatic";
+
+export default function Layout() {
+  return (
+    <KeystaticApp />
+  );
 }
