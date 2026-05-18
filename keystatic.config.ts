@@ -13,8 +13,8 @@ export default config({
     : {
         kind: 'github',
         repo: {
-          owner: 'YOUR_GITHUB_USERNAME',
-          name: 'YOUR_REPO_NAME',
+          owner: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_OWNER || 'YOUR_GITHUB_USERNAME',
+          name: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO || 'YOUR_REPO_NAME',
         },
       },
 
