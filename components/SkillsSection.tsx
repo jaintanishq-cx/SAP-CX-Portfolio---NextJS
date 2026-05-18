@@ -9,6 +9,8 @@ import {
   Cloud, 
   Code2, 
   Plug,
+  Layers,
+  Settings,
   LucideIcon 
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -19,21 +21,23 @@ const iconMap: Record<string, LucideIcon> = {
   Megaphone, 
   Cloud, 
   Code2, 
-  Plug 
+  Plug,
+  Layers,
+  Settings
 }
 
 interface SkillGroup {
-  slug: string
-  title: string
-  icon: string
-  skills: string[]
+  readonly slug: string
+  readonly title: string
+  readonly icon: string
+  readonly skills: readonly string[]
 }
 
 interface SkillsSectionProps {
-  sectionLabel: string
-  heading: string
-  subheading: string
-  skillGroups: SkillGroup[]
+  readonly sectionLabel: string
+  readonly heading: string
+  readonly subheading: string
+  readonly skillGroups: readonly SkillGroup[]
 }
 
 export default function SkillsSection({

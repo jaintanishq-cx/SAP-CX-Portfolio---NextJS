@@ -8,13 +8,13 @@ import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface NavLink {
-  label: string
-  href: string
+  readonly label: string
+  readonly href: string
 }
 
 interface NavbarProps {
-  brand: string
-  links: NavLink[]
+  readonly brand: string
+  readonly links: readonly NavLink[]
 }
 
 export default function Navbar({ brand, links }: NavbarProps) {

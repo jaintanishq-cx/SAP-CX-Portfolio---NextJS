@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import React from 'react'
 import { 
   ArrowLeft, 
   Briefcase, 
@@ -11,20 +12,22 @@ import {
   CheckCircle2, 
   Layers 
 } from 'lucide-react'
-import { siteData } from '@/data/content'
+import { reader } from '@/lib/keystatic'
+import Markdoc from '@markdoc/markdoc'
 
 interface ProjectPageProps {
   params: { slug: string }
 }
 
 export async function generateStaticParams() {
-  return siteData.projects.map((project) => ({
+  const projects = await reader.collections.projects.all()
+  return projects.map((project) => ({
     slug: project.slug,
   }))
 }
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
-  const project = siteData.projects.find((p) => p.slug === params.slug)
+  const project = await reader.collections.projects.read(params.slug)
   if (!project) return { title: 'Project Not Found' }
 
   return {
@@ -33,12 +36,18 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
-  const project = siteData.projects.find((p) => p.slug === params.slug)
+export default async function ProjectPage({ params }: ProjectPageProps) {
+  const project = await reader.collections.projects.read(params.slug)
 
   if (!project) {
     notFound()
   }
+
+  const { node: businessProblemNode } = await project.businessProblem()
+  const businessProblemRenderable = Markdoc.transform(businessProblemNode)
+
+  const { node: solutionDeliveredNode } = await project.solutionDelivered()
+  const solutionDeliveredRenderable = Markdoc.transform(solutionDeliveredNode)
 
   return (
     <div className="bg-background min-h-screen">
@@ -56,8 +65,8 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       {/* Hero Banner */}
       <div className="mt-8 relative w-full h-[60vh] overflow-hidden">
         <Image
-          src={project.image}
-          alt={project.title}
+          src={project.coverImage ?? 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80'}
+          alt={project.coverImageAlt || project.title}
           fill
           className="object-cover"
           priority
@@ -103,9 +112,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <AlertCircle className="text-primary w-6 h-6" />
             <h2>Business Problem</h2>
           </div>
-          <p className="text-lg text-muted leading-relaxed">
-            {project.businessProblem}
-          </p>
+          <div className="text-lg text-muted leading-relaxed prose prose-primary max-w-none">
+            {Markdoc.renderers.react(businessProblemRenderable, React)}
+          </div>
         </section>
 
         {/* Solution Delivered */}
@@ -114,9 +123,9 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <CheckCircle2 className="text-primary w-6 h-6" />
             <h2>Solution Delivered</h2>
           </div>
-          <p className="text-lg text-muted leading-relaxed">
-            {project.solutionDelivered}
-          </p>
+          <div className="text-lg text-muted leading-relaxed prose prose-primary max-w-none">
+            {Markdoc.renderers.react(solutionDeliveredRenderable, React)}
+          </div>
         </section>
 
         {/* Core Stack */}
@@ -126,12 +135,12 @@ export default function ProjectPage({ params }: ProjectPageProps) {
             <h2>Core Stack</h2>
           </div>
           <div className="flex flex-wrap gap-2">
-            {project.stack.map((tech, idx) => (
+            {project.techStack.map((tech, idx) => (
               <span
                 key={idx}
                 className="px-4 py-2 bg-white border border-dark/5 rounded-xl text-[11px] font-bold text-dark/70 shadow-sm"
               >
-                {tech}
+                {tech.name}
               </span>
             ))}
           </div>

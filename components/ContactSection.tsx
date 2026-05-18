@@ -6,18 +6,18 @@ import { Linkedin, Send, Loader2, CheckCircle2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface ContactSectionProps {
-  sectionLabel: string
-  heading: string
-  subheading: string
-  availabilityBadge: string
-  availableForWork: boolean
-  linkedinLabel: string
-  linkedinUrl: string
-  formNameLabel: string
-  formEmailLabel: string
-  formMessageLabel: string
-  formSubmitLabel: string
-  formSuccessMessage: string
+  readonly sectionLabel: string
+  readonly heading: string
+  readonly subheading: string
+  readonly availabilityBadge: string
+  readonly availableForWork: boolean
+  readonly linkedinLabel: string
+  readonly linkedinUrl: string | null
+  readonly formNameLabel: string
+  readonly formEmailLabel: string
+  readonly formMessageLabel: string
+  readonly formSubmitLabel: string
+  readonly formSuccessMessage: string
 }
 
 export default function ContactSection({
@@ -112,7 +112,7 @@ export default function ContactSection({
 
             {/* LinkedIn Button */}
             <a
-              href={linkedinUrl}
+              href={linkedinUrl || '#'}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-3 px-8 py-4 rounded-2xl bg-dark text-white font-bold hover:bg-primary transition-all duration-300 shadow-lg hover:shadow-primary/20"

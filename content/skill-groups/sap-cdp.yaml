@@ -1,0 +1,12 @@
+title: "SAP CDP"
+icon: "Database"
+order: 2
+skills:
+  - name: "Custom Connectors"
+  - name: "Unified Profiles"
+  - name: "Event Modelling"
+  - name: "Activity Indicators"
+  - name: "Segments"
+  - name: "CX Flows"
+  - name: "Matching & Merging"
+  - name: "Data Governance"

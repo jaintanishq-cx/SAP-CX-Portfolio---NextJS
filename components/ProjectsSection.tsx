@@ -6,12 +6,24 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Clock, Users, Briefcase, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Project } from '@/data/content'
+
+interface Project {
+  readonly slug: string
+  readonly title: string
+  readonly industry: string
+  readonly role: string
+  readonly duration: string
+  readonly teamSize: string
+  readonly image: string
+  readonly description: string
+  readonly stack: readonly string[]
+  readonly order?: number | null
+}
 
 interface ProjectsSectionProps {
-  sectionLabel: string
-  heading: string
-  projects: Project[]
+  readonly sectionLabel: string
+  readonly heading: string
+  readonly projects: readonly Project[]
 }
 
 export default function ProjectsSection({
@@ -19,8 +31,8 @@ export default function ProjectsSection({
   heading,
   projects,
 }: ProjectsSectionProps) {
-  // Sort projects if needed, though props likely already match design order
-  const sortedProjects = [...projects].sort((a, b) => a.order - b.order)
+  // Pass projects already sorted and filtered from parent or handle it here
+  const sortedProjects = projects
 
   return (
     <section className="py-32 px-6 bg-[#FAFAFA]" id="projects">

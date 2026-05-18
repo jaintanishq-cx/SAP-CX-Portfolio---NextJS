@@ -6,12 +6,12 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Mail } from 'lucide-react'
 
 interface HeroSectionProps {
-  greeting: string
-  name: string
-  title: string
-  tagline: string
-  ctaPrimary: { label: string; href: string }
-  ctaSecondary: { label: string; href: string }
+  readonly greeting: string
+  readonly name: string
+  readonly title: string
+  readonly tagline: string
+  readonly ctaPrimary: { readonly label: string; readonly href: string }
+  readonly ctaSecondary: { readonly label: string; readonly href: string }
 }
 
 export default function HeroSection({

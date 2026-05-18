@@ -4,33 +4,48 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import ScrollToTop from '@/components/ScrollToTop'
-import { siteData } from '@/data/content'
+import { reader } from '@/lib/keystatic'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: siteData.siteSettings.siteTitle,
-  description: siteData.siteSettings.siteDescription,
-  openGraph: {
-    title: siteData.siteSettings.siteTitle,
-    description: siteData.siteSettings.siteDescription,
-    type: 'website',
-  },
+export async function generateMetadata(): Promise<Metadata> {
+  const siteSettings = await reader.singletons.siteSettings.read()
+  if (!siteSettings) return {}
+
+  return {
+    title: siteSettings.siteTitle,
+    description: siteSettings.siteDescription,
+    openGraph: {
+      title: siteSettings.siteTitle,
+      description: siteSettings.siteDescription,
+      type: 'website',
+    },
+  }
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const [navbar, siteSettings, contactSection] = await Promise.all([
+    reader.singletons.navbar.read(),
+    reader.singletons.siteSettings.read(),
+    reader.singletons.contactSection.read(),
+  ])
+
+  if (!navbar || !siteSettings || !contactSection) {
+    return null
+  }
+
   return (
     <html lang="en" className="scroll-smooth">
       <body suppressHydrationWarning className={`${inter.className} bg-background antialiased`}>
-        <Navbar brand={siteData.navbar.brand} links={siteData.navbar.links} />
+        <Navbar brand={navbar.brand} links={navbar.links} />
         <main>{children}</main>
         <Footer 
-          footerText={siteData.siteSettings.footerText} 
-          linkedinUrl={siteData.contactSection.linkedinUrl} 
+          footerText={siteSettings.footerText} 
+          linkedinUrl={contactSection.linkedinUrl || '#'} 
         />
         <ScrollToTop />
       </body>

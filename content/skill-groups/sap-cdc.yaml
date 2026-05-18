@@ -1,0 +1,15 @@
+title: "SAP CDC / Gigya"
+icon: "ShieldCheck"
+order: 1
+skills:
+  - name: "Site Setup"
+  - name: "Screen-sets"
+  - name: "SSO (SAML/OIDC)"
+  - name: "MFA"
+  - name: "Passkeys / FIDO"
+  - name: "RBA"
+  - name: "Webhooks"
+  - name: "Dataflows"
+  - name: "B2B Org Management"
+  - name: "Extensions"
+  - name: "Federation"

@@ -1,0 +1,10 @@
+title: "Web & Dev"
+icon: "Code2"
+order: 5
+skills:
+  - name: "JavaScript"
+  - name: "Node.js"
+  - name: "React"
+  - name: "Next.js"
+  - name: "Python (Flask)"
+  - name: "REST APIs"

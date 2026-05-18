@@ -1,0 +1,11 @@
+title: "Azure"
+icon: "Cloud"
+order: 4
+skills:
+  - name: "Azure AD B2C"
+  - name: "Azure Functions"
+  - name: "App Service"
+  - name: "Logic Apps"
+  - name: "AKS"
+  - name: "Service Bus"
+  - name: "Key Vault"

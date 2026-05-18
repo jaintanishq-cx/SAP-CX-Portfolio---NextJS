@@ -1,0 +1,12 @@
+title: "Integrations"
+icon: "Plug"
+order: 6
+skills:
+  - name: "SAP Commerce Cloud (CCv2)"
+  - name: "Spartacus"
+  - name: "Hybris"
+  - name: "SAP C4C"
+  - name: "Salesforce"
+  - name: "Iterable"
+  - name: "Optimizely"
+  - name: "Mobile (Android/iOS)"

@@ -1,0 +1,17 @@
+brand: "Tanishq Jain"
+links:
+  - label: "About"
+    href: "#about"
+    openInNewTab: false
+  - label: "Skills"
+    href: "#skills"
+    openInNewTab: false
+  - label: "Projects"
+    href: "#projects"
+    openInNewTab: false
+  - label: "Blog"
+    href: "/blog"
+    openInNewTab: false
+  - label: "Contact"
+    href: "#contact"
+    openInNewTab: false

@@ -3,8 +3,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { siteData } from '@/data/content'
+import { reader } from '@/lib/keystatic'
 import { ArrowLeft, Calendar, Clock, Tag } from 'lucide-react'
+import Markdoc from '@markdoc/markdoc'
 
 interface BlogPostPageProps {
   params: {
@@ -13,34 +14,39 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
-  return siteData.blogPosts.map((post) => ({
+  const posts = await reader.collections.blogPosts.all()
+  return posts.map((post) => ({
     slug: post.slug,
   }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = siteData.blogPosts.find((p) => p.slug === params.slug)
+  const post = await reader.collections.blogPosts.read(params.slug)
   if (!post) return { title: 'Post Not Found' }
 
+  const title = post.seoTitle || post.title
+  const description = post.seoDescription || post.excerpt
+
   return {
-    title: `${post.title} | Tanishq Jain Blog`,
-    description: post.excerpt,
+    title: `${title} | Tanishq Jain Blog`,
+    description: description,
     openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      images: [post.coverImage],
+      title: title,
+      description: description,
+      images: post.coverImage ? [post.coverImage] : [],
     },
   }
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = siteData.blogPosts.find((p) => p.slug === params.slug)
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const post = await reader.collections.blogPosts.read(params.slug)
 
   if (!post) {
     notFound()
   }
 
-  const readTime = Math.ceil(post.content.split(' ').length / 200)
+  const { node } = await post.content()
+  const renderable = Markdoc.transform(node)
 
   return (
     <div className="bg-background min-h-screen">
@@ -57,17 +63,19 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
       </div>
 
       {/* Hero Image */}
-      <div className="relative w-full h-[50vh] min-h-[400px]">
-        <Image
-          src={post.coverImage}
-          alt={post.title}
-          fill
-          className="object-cover"
-          priority
-          referrerPolicy="no-referrer"
-        />
-        <div className="absolute inset-0 bg-dark/20" />
-      </div>
+      {post.coverImage && (
+        <div className="relative w-full h-[50vh] min-h-[400px]">
+          <Image
+            src={post.coverImage}
+            alt={post.coverImageAlt || post.title}
+            fill
+            className="object-cover"
+            priority
+            referrerPolicy="no-referrer"
+          />
+          <div className="absolute inset-0 bg-dark/20" />
+        </div>
+      )}
 
       {/* Article Content */}
       <article className="max-w-3xl mx-auto px-6 py-16">
@@ -77,11 +85,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="flex gap-2 flex-wrap mb-6">
             {post.tags.map((tag) => (
               <span 
-                key={tag}
+                key={tag.name}
                 className="inline-flex items-center gap-1.5 px-3 py-1 bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest rounded-full"
               >
                 <Tag size={10} />
-                {tag}
+                {tag.name}
               </span>
             ))}
           </div>
@@ -93,15 +101,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           <div className="flex flex-wrap items-center gap-6 text-sm text-muted font-bold">
             <div className="flex items-center gap-2">
               <Calendar size={16} className="text-primary" />
-              {new Date(post.publishedDate).toLocaleDateString('en-US', {
+              {post.publishedDate ? new Date(post.publishedDate).toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric',
-              })}
-            </div>
-            <div className="flex items-center gap-2">
-              <Clock size={16} className="text-primary" />
-              {readTime} min read
+              }) : 'Draft'}
             </div>
           </div>
         </div>
@@ -110,8 +114,8 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Article Body */}
         <div className="prose prose-lg max-w-none prose-headings:font-black prose-headings:tracking-tighter prose-p:text-dark/80 prose-p:leading-relaxed prose-strong:text-dark prose-a:text-primary">
-          <div className="whitespace-pre-wrap text-lg text-dark/80 leading-relaxed font-medium">
-            {post.content}
+          <div className="text-lg text-dark/80 leading-relaxed font-medium">
+            {Markdoc.renderers.react(renderable, React)}
           </div>
         </div>
         

@@ -1,0 +1,10 @@
+sectionLabel: "ABOUT ME"
+heading: "Who I Am"
+bio: "Senior SAP CX Developer with ~7 years of experience specialising in Customer Identity & Access Management (CIAM) across global, multi-brand enterprise environments. I work across the full spectrum — from architecture and discovery workshops to hands-on implementation of SAP CDC, SAP CDP, and Azure integrations."
+stats:
+  - value: "7+"
+    label: "Years Experience"
+  - value: "10+"
+    label: "Enterprise Projects"
+  - value: "3"
+    label: "SAP Certifications"

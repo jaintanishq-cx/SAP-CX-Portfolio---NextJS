@@ -4,15 +4,15 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 interface Stat {
-  value: string
-  label: string
+  readonly value: string | null
+  readonly label: string | null
 }
 
 interface AboutSectionProps {
-  sectionLabel: string
-  heading: string
-  bio: string
-  stats: Stat[]
+  readonly sectionLabel: string
+  readonly heading: string
+  readonly bio: string
+  readonly stats: readonly Stat[]
 }
 
 export default function AboutSection({
@@ -112,9 +112,9 @@ export default function AboutSection({
               {stats.map((stat, index) => (
                 <div key={index} className="flex items-center gap-8">
                   <div className="flex flex-col">
-                    <span className="text-4xl font-black text-dark">{stat.value}</span>
+                    <span className="text-4xl font-black text-dark">{stat.value || ''}</span>
                     <span className="text-sm text-muted uppercase tracking-widest mt-1">
-                      {stat.label}
+                      {stat.label || ''}
                     </span>
                   </div>
                   {index !== stats.length - 1 && (

@@ -1,0 +1,8 @@
+greeting: "Hi, I'm"
+name: "Tanishq Jain"
+title: "Senior SAP CX Developer & CIAM Architect"
+tagline: "7+ years building secure, scalable Customer Identity & Access Management platforms across global enterprise environments using SAP CDC, SAP CDP, and Azure."
+ctaPrimaryLabel: "View Projects"
+ctaPrimaryHref: "#projects"
+ctaSecondaryLabel: "Contact Me"
+ctaSecondaryHref: "#contact"

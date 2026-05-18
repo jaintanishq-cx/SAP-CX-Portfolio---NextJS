@@ -1,0 +1,12 @@
+sectionLabel: "CONTACT"
+heading: "Let's Work Together"
+subheading: "Open to global contract engagements in SAP CX, CIAM & CDP."
+availabilityBadge: "Available for new contracts"
+availableForWork: true
+linkedinLabel: "Connect on LinkedIn"
+linkedinUrl: "https://linkedin.com/in/tanishqjain"
+formNameLabel: "Full Name"
+formEmailLabel: "Email Address"
+formMessageLabel: "Message"
+formSubmitLabel: "Send Message"
+formSuccessMessage: "Thanks! I'll get back to you within 24 hours."
