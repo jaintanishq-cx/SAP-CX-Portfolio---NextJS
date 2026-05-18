@@ -1,0 +1,6 @@
+{
+  "name": "Tanishq Portfolio",
+  "description": "A refined, technical portfolio for Tanishq, showcasing projects and blog posts.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
