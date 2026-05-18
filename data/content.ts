@@ -32,6 +32,17 @@ export interface Project {
   solutionDelivered: string;
 }
 
+export interface BlogPost {
+  slug: string;
+  title: string;
+  publishedDate: string;
+  excerpt: string;
+  coverImage: string;
+  tags: string[];
+  featured: boolean;
+  content: string;
+}
+
 export interface SiteData {
   hero: {
     greeting: string;
@@ -59,6 +70,13 @@ export interface SiteData {
     subheading: string;
   };
   projects: Project[];
+  blogSection: {
+    sectionLabel: string;
+    heading: string;
+    subheading: string;
+    viewAllLabel: string;
+  };
+  blogPosts: BlogPost[];
   contactSection: {
     sectionLabel: string;
     heading: string;
@@ -91,8 +109,8 @@ export const siteData: SiteData = {
     name: "Tanishq Jain",
     title: "Senior SAP CX Developer & CIAM Architect",
     tagline: "7+ years building secure, scalable Customer Identity & Access Management platforms across global enterprise environments using SAP CDC, SAP CDP, and Azure.",
-    ctaPrimary: { label: "View Projects", href: "#projects" },
-    ctaSecondary: { label: "Contact Me", href: "#contact" },
+    ctaPrimary: { label: "View Projects", href: "/#projects" },
+    ctaSecondary: { label: "Contact Me", href: "/#contact" },
   },
 
   about: {
@@ -263,6 +281,46 @@ export const siteData: SiteData = {
     },
   ],
 
+  blogSection: {
+    sectionLabel: "BLOG",
+    heading: "Thoughts & Insights",
+    subheading: "Deep dives into SAP CDC, CDP, CIAM architecture and identity best practices.",
+    viewAllLabel: "View All Posts",
+  },
+
+  blogPosts: [
+    {
+      slug: "sap-cdc-b2b-identity-guide",
+      title: "B2B Identity Management with SAP CDC: A Practical Guide",
+      publishedDate: "2025-03-15",
+      excerpt: "A deep dive into implementing B2B organisation management, policy-based access control and SAML federation using SAP Customer Data Cloud.",
+      coverImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+      tags: ["SAP CDC", "B2B Identity", "SAML", "CIAM"],
+      featured: true,
+      content: "B2B Identity management is significantly more complex than standard B2C. While B2C focuses on the individual, B2B requires representing the relationships between individuals, their organisations, and the permissions granted to them within those contexts.\n\nIn SAP CDC, we achieve this through Organization Management (formerly known as Gigya B2B). This allows us to create hierarchical structures of organizations and sub-organizations, assign users to these organizations, and manage their roles.\n\nKey features of a robust B2B implementation include:\n\n1. Self-Service Organization Onboarding: Allowing delegated administrators from the client organization to manage their own users.\n2. SAML 2.0 Federation: Enabling users to log in using their own corporate identity providers (like Azure AD or Okta).\n3. Policy-Based Access Control: Ensuring users can only access applications and data they are entitled to based on their organizational context.",
+    },
+    {
+      slug: "sap-cdp-unified-profiles",
+      title: "Building Unified Customer Profiles with SAP CDP",
+      publishedDate: "2025-02-20",
+      excerpt: "How to configure matching and merging rules, activity indicators and CX flows in SAP Customer Data Platform for a true 360° customer view.",
+      coverImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      tags: ["SAP CDP", "Customer Data", "Segmentation"],
+      featured: true,
+      content: "The Customer Data Platform (CDP) is the engine that powers modern personalization. Its primary goal is to ingest data from multiple sources—SAP CDC, Commerce, Marketing, Service, and offline sources—and resolve them into a single, unified profile.\n\nMatching and Merging: This is the most critical part of profile resolution. We define 'Deterministic' matching (e.g., matching by Email or a unique ID) to combine profiles with high confidence. When multiple sources provide conflicting information, merging rules decide which source is the 'System of Record' for specific attributes.\n\nActivity Indicators: These are real-time aggregations that help us understand customer behavior. For example, calculating the 'Total Purchase Value in last 30 days' or 'Most frequent category'. These indicators can then trigger segments or CX flows.\n\nCX Flows: These allow us to take immediate action based on profile updates or activities. If a customer enters a 'High Value' segment, a CX flow can instantly trigger a personalized coupon via SAP Emarsys or notify a sales agent in Service Cloud.",
+    },
+    {
+      slug: "passkeys-fido-enterprise",
+      title: "Implementing Passkeys & FIDO2 in Enterprise CIAM",
+      publishedDate: "2025-01-10",
+      excerpt: "A practical walkthrough of deploying passwordless authentication using FIDO2 and passkeys in SAP CDC for enterprise B2C and B2B environments.",
+      coverImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?w=800&q=80",
+      tags: ["FIDO2", "Passkeys", "Passwordless", "SAP CDC"],
+      featured: false,
+      content: "Passwords are increasingly becoming a liability. They are easily stolen, forgotten, and provide a poor user experience. Passkeys, built on the FIDO2 standard, offer a solution that is both more secure and more convenient.\n\nImplementing Passkeys in SAP CDC involves several key steps:\n\n1. Enabling FIDO as an Authentication Method: In the CDC console, we must enable and configure the FIDO settings.\n2. Updating Screen-sets: The login and registration screens need to be updated to support the passkey creation and authentication flows.\n3. Handling Device Enrollment: Users need a way to 'upgrade' their account to a passkey if they are logged in via traditional methods.\n\nFor enterprise environments, the benefit is two-fold: reduced support costs related to password resets and a significant increase in security against phishing attacks, as passkeys are cryptographically bound to the specific website.",
+    },
+  ],
+
   contactSection: {
     sectionLabel: "CONTACT",
     heading: "Let's Work Together",
@@ -270,7 +328,7 @@ export const siteData: SiteData = {
     availabilityBadge: "Available for new contracts",
     availableForWork: true,
     linkedinLabel: "Connect on LinkedIn",
-    linkedinUrl: "https://linkedin.com/in/YOUR_HANDLE",
+    linkedinUrl: "https://linkedin.com/in/tanishqjain",
     formNameLabel: "Full Name",
     formEmailLabel: "Email Address",
     formMessageLabel: "Message",
@@ -288,11 +346,11 @@ export const siteData: SiteData = {
   navbar: {
     brand: "Tanishq Jain",
     links: [
-      { label: "About", href: "#about" },
-      { label: "Skills", href: "#skills" },
-      { label: "Projects", href: "#projects" },
+      { label: "About", href: "/#about" },
+      { label: "Skills", href: "/#skills" },
+      { label: "Projects", href: "/#projects" },
       { label: "Blog", href: "/blog" },
-      { label: "Contact", href: "#contact" },
+      { label: "Contact", href: "/#contact" },
     ],
   },
 }
