@@ -8,19 +8,50 @@ import { reader } from '@/lib/keystatic'
 export default async function HomePage() {
   const [hero, about, skillsSection, projectsSection, contactSection] =
     await Promise.all([
-      reader.singletons.hero.read(),
-      reader.singletons.about.read(),
-      reader.singletons.skillsSection.read(),
-      reader.singletons.projectsSection.read(),
-      reader.singletons.contactSection.read(),
+      reader.singletons.hero.read().then(res => res ?? {
+        greeting: "Hi, I'm",
+        name: "Tanishq Jain",
+        title: "Senior SAP CX Developer & CIAM Architect",
+        tagline: "Specialising in SAP CDC, CDP and Azure integrations.",
+        ctaPrimaryLabel: "View Projects",
+        ctaPrimaryHref: "#projects",
+        ctaSecondaryLabel: "Contact Me",
+        ctaSecondaryHref: "#contact",
+      }),
+      reader.singletons.about.read().then(res => res ?? {
+        sectionLabel: "ABOUT ME",
+        heading: "Who I Am",
+        bio: "Senior SAP CX Developer with ~7 years of experience specialising in Customer Identity & Access Management (CIAM).",
+        stats: [],
+      }),
+      reader.singletons.skillsSection.read().then(res => res ?? {
+        sectionLabel: "EXPERTISE",
+        heading: "Skills & Proficiency",
+        subheading: "My technical stack and core competencies.",
+      }),
+      reader.singletons.projectsSection.read().then(res => res ?? {
+        sectionLabel: "PORTFOLIO",
+        heading: "Enterprise Case Studies",
+        subheading: "Selection of major projects delivered.",
+      }),
+      reader.singletons.contactSection.read().then(res => res ?? {
+        sectionLabel: "CONTACT",
+        heading: "Let's Work Together",
+        subheading: "Available for new opportunities.",
+        availabilityBadge: "ACTIVE",
+        availableForWork: true,
+        linkedinLabel: "Connect on LinkedIn",
+        linkedinUrl: "#",
+        formNameLabel: "Full Name",
+        formEmailLabel: "Email Address",
+        formMessageLabel: "Message",
+        formSubmitLabel: "Send Message",
+        formSuccessMessage: "Thanks! I'll get back to you soon.",
+      }),
     ])
 
   const skillGroupsData = await reader.collections.skillGroups.all()
   const allProjectsData = await reader.collections.projects.all()
-
-  if (!hero || !about || !skillsSection || !projectsSection || !contactSection) {
-    return null
-  }
 
   const skillGroups = skillGroupsData
     .map(g => ({ slug: g.slug, ...g.entry, skills: g.entry.skills.map(s => s.name) }))

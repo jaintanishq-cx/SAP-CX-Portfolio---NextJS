@@ -1,0 +1,17 @@
+title: "Global Commerce Retailer"
+industry: "Retail"
+role: "Lead CIAM Architect"
+duration: "18 Months"
+teamSize: "12 Members"
+description: "Implementation of SAP Customer Data Cloud for a global multi-brand retail enterprise."
+businessProblem: |
+  The client had multiple legacy identity systems across different brands, leading to a fragmented customer experience and data silos. They needed a unified CIAM solution to provide a seamless login experience and a 360-degree view of the customer.
+solutionDelivered: |
+  We implemented SAP CDC (Gigya) globally, integrating it with their e-commerce platforms and marketing tools. This included custom screen-sets, OIDC integrations, and complex data migration from legacy systems.
+techStack:
+  - name: "SAP CDC"
+  - name: "Social Login"
+  - name: "OIDC"
+  - name: "JavaScript"
+order: 1
+featured: true

@@ -29,14 +29,26 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
   const [navbar, siteSettings, contactSection] = await Promise.all([
-    reader.singletons.navbar.read(),
-    reader.singletons.siteSettings.read(),
-    reader.singletons.contactSection.read(),
+    reader.singletons.navbar.read().then(res => res ?? {
+      brand: 'Tanishq Jain',
+      links: [
+        { label: 'Home', href: '/' },
+        { label: 'About', href: '/#about' },
+        { label: 'Skills', href: '/#expertise' },
+        { label: 'Projects', href: '/#projects' },
+        { label: 'Blog', href: '/blog' },
+        { label: 'Contact', href: '/#contact' },
+      ],
+    }),
+    reader.singletons.siteSettings.read().then(res => res ?? {
+      siteTitle: 'Tanishq Jain — Portfolio',
+      siteDescription: 'Senior SAP CX Developer & CIAM Architect',
+      footerText: '© 2024 Tanishq Jain. All rights reserved.',
+    }),
+    reader.singletons.contactSection.read().then(res => res ?? {
+      linkedinUrl: '#',
+    }),
   ])
-
-  if (!navbar || !siteSettings || !contactSection) {
-    return null
-  }
 
   return (
     <html lang="en" className="scroll-smooth">

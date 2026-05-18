@@ -15,11 +15,14 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BlogListingPage() {
   const [blogSection, allPostsData] = await Promise.all([
-    reader.singletons.blogSection.read(),
+    reader.singletons.blogSection.read().then(res => res ?? {
+      sectionLabel: 'BLOG',
+      heading: 'Thoughts & Insights',
+      subheading: 'Regular updates on SAP Customer Data Cloud, CDP trends, and identity architecture.',
+      viewAllLabel: 'View All Posts',
+    }),
     reader.collections.blogPosts.all(),
   ])
-
-  if (!blogSection) return null
 
   const posts = allPostsData
     .map(p => ({ slug: p.slug, ...p.entry }))
