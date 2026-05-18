@@ -1,7 +1,4 @@
-'use client'
+import { makePage } from '@keystatic/next/ui/app'
+import config from '../../../../keystatic.config'
 
-import KeystaticApp from "../keystatic"
-
-export default function Page() {
-  return <KeystaticApp />
-}
+export default makePage(config)
