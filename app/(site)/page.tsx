@@ -62,7 +62,12 @@ export default async function HomePage() {
     .sort((a, b) => (a.entry.order ?? 99) - (b.entry.order ?? 99))
     .map(p => ({
       slug: p.slug,
-      ...p.entry,
+      title: p.entry.title,
+      industry: p.entry.industry,
+      role: p.entry.role,
+      duration: p.entry.duration,
+      teamSize: p.entry.teamSize,
+      description: p.entry.description,
       stack: p.entry.techStack.map(t => t.name),
       image: p.entry.coverImage ?? 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
     }))

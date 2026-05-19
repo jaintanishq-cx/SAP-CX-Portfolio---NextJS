@@ -21,7 +21,7 @@ export default config({
   ui: {
     brand: { name: 'Tanishq Jain — Portfolio CMS' },
     navigation: {
-      Pages: ['hero', 'about', 'skillsSection', 'projectsSection', 'contactSection', 'blogSection'],
+      Pages: ['hero', 'about', 'skillsSection', 'projectsSection', 'contactSection', 'blogSefction'],
       Content: ['skillGroups', 'projects', 'blogPosts'],
       Settings: ['siteSettings', 'navbar'],
     },
