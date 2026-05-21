@@ -1,20 +1,16 @@
 import { config, fields, collection, singleton } from '@keystatic/core'
 
 const isDev = process.env.NODE_ENV === 'development'
-const hasGitHubSecrets = !!(
-  process.env.KEYSTATIC_GITHUB_CLIENT_ID &&
-  process.env.KEYSTATIC_GITHUB_CLIENT_SECRET &&
-  process.env.KEYSTATIC_SECRET
-)
 
 export default config({
-  storage: (isDev || !hasGitHubSecrets)
+  // Rely ONLY on NODE_ENV to determine the storage kind
+  storage: isDev
     ? { kind: 'local' }
     : {
         kind: 'github',
         repo: {
-          owner: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_OWNER || 'YOUR_GITHUB_USERNAME',
-          name: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO || 'YOUR_REPO_NAME',
+          owner: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_OWNER || 'jaintanishq-cx',
+          name: process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_REPO || 'SAP-CX-Portfolio---NextJS',
         },
       },
 
