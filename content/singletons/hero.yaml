@@ -1,11 +1,14 @@
 greeting: Hi, I'm
-name: jain tanishq
-title: Senior SAP CX Developer & CIAM Architect
+name: Tanishq Jain
+title: CUSTOMER EXPERIENCE DEVELOPER & IDENTITY ARCHITECT
 tagline: >-
-  7+ years building secure, scalable Customer Identity & Access Management
-  platforms across global enterprise environments using SAP CDC, SAP CDP, and
-  Azure.
-ctaPrimaryLabel: View Projects
+  7+ years designing and engineering Customer Experience platforms — from
+  seamless login flows to unified customer data — across enterprise and
+  mid-market businesses.
+
+
+  ✦ 8+ enterprise deployments  ✦ CIAM · CDP · CX Engineering
+ctaPrimaryLabel: See My Work
 ctaPrimaryHref: '#projects'
 ctaSecondaryLabel: Contact Me
 ctaSecondaryHref: '#contact'
